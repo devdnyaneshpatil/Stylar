@@ -5,7 +5,6 @@ function Footer() {
   return (
     <Box bg="gray.100" p={8}>
       <Flex justify="space-between" align="flex-start" maxW="1200px" mx="auto">
-        {/* Useful Links */}
         <Box flex="1" mr={8}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             Useful Links
@@ -22,7 +21,6 @@ function Footer() {
             </ListItem>
           </UnorderedList>
         </Box>
-        {/* Connect With Us */}
         <Box flex="1" mr={8}>
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             Connect With Us
@@ -39,7 +37,6 @@ function Footer() {
             </ListItem>
           </UnorderedList>
         </Box>
-        {/* Contact Info */}
         <Box flex="1">
           <Text fontSize="xl" fontWeight="bold" mb={4}>
             Contact Info
