@@ -46,7 +46,7 @@ const login = async (req, res) => {
     try {
        const user = await UserModel.findOne({ email });
        if(!user){
-         res.status(400).json({msg:"Please Login First"})
+         res.status(400).json({msg:"Please Register First"})
          return
        }
        const result=  await verify(password,user.password)

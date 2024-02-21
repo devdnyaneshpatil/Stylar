@@ -1,7 +1,12 @@
 import { Box, Button, Container, Flex, HStack, Heading, Link } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import {useNavigate} from "react-router-dom"
 
 function Navbar() {
+  const navigate=useNavigate()
+  const redirectLogin=()=>{
+       navigate("/login")
+  }
   return (
     <Container maxW={"100%"}>
       <Flex
@@ -85,7 +90,7 @@ function Navbar() {
           >
             <a href="">Contact</a>
           </Box>
-          <Button colorScheme="cyan">Login</Button>
+          <Button colorScheme="cyan" onClick={redirectLogin}>Login</Button>
         </HStack>
       </Flex>
     </Container>
