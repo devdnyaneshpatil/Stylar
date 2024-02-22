@@ -3,7 +3,7 @@ const { generateToken } = require("../config/token");
 const UserModel = require("../models/user.model");
 
 const register = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,role,shopName,mobile,age } = req.body;
   if (!name || !email || !password) {
     res.status(400).json({ msg: "Please Fill All the fields" });
     return;
@@ -19,6 +19,10 @@ const register = async (req, res) => {
       name,
       email,
       password: hashedPassword,
+      role,
+      shopName,
+      mobile,
+      age
     });
     await user.save();
     const token = generateToken(user._id);
