@@ -1,6 +1,6 @@
-import { Box, Button, Container, Flex, HStack, Heading, Link } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, HStack, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {Link, NavLink, useNavigate} from "react-router-dom"
 
 function Navbar() {
   const navigate=useNavigate()
@@ -60,7 +60,7 @@ function Navbar() {
             }}
             textAlign={"center"}
           >
-            <a href="">Services</a>
+            <Link to="/services">Services</Link>
           </Box>
           <Box
             w={"100px"}
@@ -88,7 +88,7 @@ function Navbar() {
             }}
             textAlign={"center"}
           >
-            <a href="">Contact</a>
+            <NavLink to="/contact">Contact</NavLink>
           </Box>
           <Button colorScheme="cyan" onClick={redirectLogin}>Login</Button>
         </HStack>

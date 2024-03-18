@@ -8,13 +8,12 @@ import {
   Heading,
   Image,
   Input,
-  Link,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import axios from 'axios'
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 
 function Signup() {
   // logics for chakra ui
@@ -118,7 +117,7 @@ function Signup() {
               <Button w={"100%"} onClick={handleSubmit} isLoading={isLoading} >Signup</Button>
               <Text mt={"5px"} textAlign={"center"}>
                 Already Have an acccount?{" "}
-                <Link href="/login" color={"blue"}>
+                <Link to="/login" color={"blue"}>
                   Login
                 </Link>
               </Text>

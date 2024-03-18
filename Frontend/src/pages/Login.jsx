@@ -8,12 +8,11 @@ import {
   Heading,
   Image,
   Input,
-  Link,
   Text,
   useToast,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import {useNavigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import axios from "axios"
 
 function Login() {
@@ -105,12 +104,12 @@ function Login() {
             />
           </Box>
           <Box>
-            <Button w={"100%"} isLoading={isLoading} onClick={handleSubmit} >Login</Button>
+            <Button w={"100%"} isLoading={isLoading} onClick={handleSubmit}>
+              Login
+            </Button>
             <Text mt={"5px"} textAlign={"center"}>
-              Don't Have an acccount?{" "}
-              <Link href="/signup" color={"blue"}>
-                Create An Account
-              </Link>
+              Don't Have an acccount?{" "}   
+                <Link to="/signup">Create An Account</Link>
             </Text>
           </Box>
         </Flex>

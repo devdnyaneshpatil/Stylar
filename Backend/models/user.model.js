@@ -14,17 +14,18 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  role:{
-    type:String,
-    enum:["servicer","user"],
-    default:"user"
+  
+  role: {
+    type: String,
+    enum: ["servicer", "user"],
+    default: "user",
   },
-  shopName:{
-    type:String,
-    default:null
+  shopName: {
+    type: String,
+    default: null,
   },
-  mobile:String,
-  age:Number
+  mobile: String,
+  age: Number,
 });
 
 const UserModel=mongoose.model('user',userSchema)

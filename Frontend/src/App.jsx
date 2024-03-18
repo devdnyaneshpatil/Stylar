@@ -4,15 +4,17 @@ import { Route, Router, Routes } from 'react-router-dom'
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Services from './pages/Services';
+import Contact from './pages/Contact';
 
 
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<Homepage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/services" element={<Services />} />
+      <Route path="/" Component={Homepage } />
+      <Route path="/login" Component={Login} />
+      <Route path="/signup" Component={Signup} />
+      <Route path="/services" Component={Services} />
+      <Route path="/contact" Component={Contact} />
     </Routes>
   );
 }
