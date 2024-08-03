@@ -1,71 +1,63 @@
-const {hashing,verify} = require("../config/bcrypt");
+const { hashing, verify } = require("../config/bcrypt");
 const { generateToken } = require("../config/token");
-const UserModel = require("../models/user.model");
+const authContext = require("../db/context/auth.context");
 
 const register = async (req, res) => {
-  const { name, email, password,role,shopName,mobile,age } = req.body;
+  const { name, email, password, role = "User" } = req.body;
   if (!name || !email || !password) {
-    res.status(400).json({ msg: "Please Fill All the fields" });
+    res.status(400).json({ msg: "Please Fill Mandatory fields" });
     return;
   }
   try {
-    const userExist = await UserModel.findOne({ email });
+    const userExist = await authContext.getUserByEmail(email);
     if (userExist) {
-      res.status(409).json({ msg: "Already Have an Account." });
-      return;
+      return res.status(409).json({ msg: "Already Have an Account." });
     }
     const hashedPassword = await hashing(password);
-    const user = new UserModel({
+    const newUser = await authContext.createNewUser({
       name,
       email,
       password: hashedPassword,
       role,
-      shopName,
-      mobile,
-      age
     });
-    await user.save();
-    const token = generateToken(user._id);
-    res.status(201).json({
+    const token = generateToken(newUser._id);
+    return res.status(201).json({
       msg: "Registered Successfully",
-      newUser: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
+      userData: {
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
         token,
       },
     });
   } catch (error) {
     console.error("Error registering user:", error);
-    res.status(500).json({ msg: `Internal server error.:-${error.message}` });
+    return res
+      .status(500)
+      .json({ msg: `Internal server error.:-${error.message}` });
   }
 };
 
 const login = async (req, res) => {
-    const {email,password}=req.body
-    if (!email || !password) {
-      res.status(400).json({ msg: "Please Fill All the fields" });
-      return;
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ msg: "Please Fill Mandatory fields" });
+  }
+  try {
+    const user = await authContext.getUserByEmail(email);
+    if (!user) {
+      return res.status(400).json({ msg: "Please Register First" });
     }
-    try {
-       const user = await UserModel.findOne({ email });
-       if(!user){
-         res.status(400).json({msg:"Please Register First"})
-         return
-       }
-       const result=  await verify(password,user.password)
-       if(result){
-        const token = generateToken(user._id);
-        res.status(201).json({msg:"Login Successfull",token})
-        return 
-       }else{
-        res.status(401).json({ msg: "Invalid credentials" });
-        return;
-       }
-    } catch (error) {
-       console.error("Error logging in:", error);
-       res.status(500).json({ msg: `Internal server error: ${error.message}` }); 
+    const result = await verify(password, user.password);
+    if (!result) {
+      return res.status(401).json({ msg: "Incorrect Password" });
     }
+    const token = generateToken(user._id);
+    return res.status(201).json({ msg: "Login Successfull", token });
+  } catch (error) {
+    console.error("Error logging in:", error);
+    return res.status(500).json({ msg: `Internal server error: ${error.message}` });
+  }
 };
 
 module.exports = { register, login };

@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
   
   role: {
     type: String,
-    enum: ["servicer", "user"],
+    enum: ["Servicer", "User"],
     default: "user",
   },
   shopName: {
@@ -28,6 +28,6 @@ const userSchema = mongoose.Schema({
   age: Number,
 });
 
-const UserModel=mongoose.model('user',userSchema)
+const User=mongoose.model('user',userSchema)
 
-module.exports=UserModel
+module.exports=User
